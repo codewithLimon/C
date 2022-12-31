@@ -1,0 +1,124 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+
+struct Road{
+    char roadName[100];
+    int lanes;
+    float roadLength;
+    int monthlyAVGVechicleTravel;
+    int motorVehicles;
+    
+}r;
+
+void takeOneRoadInfoFromKeyboard(struct Road a[], int n){
+
+        for(int i=0;i<n;i++){
+            printf("Enter Road name: \n");
+            fflush(stdin);
+            scanf("%s",&a[i].roadName);
+            fflush(stdin);
+            printf("Enter Number of Lanes: \n");
+            scanf("%d",&a[i].lanes);
+            printf("Enter road length: \n");
+            scanf("%f",&a[i].roadLength);
+            printf("Enter Monthly average number of motor vehicles travel on this road: \n");
+            scanf("%d",&a[i].monthlyAVGVechicleTravel);
+            a[i].motorVehicles=a[i].monthlyAVGVechicleTravel*30;
+        }
+
+}
+
+
+void findRoadWithHeaviestTraffic(struct Road a[], int n){
+
+    int heaviestTraffic=a[0].monthlyAVGVechicleTravel;
+    int heaviestTrafficIndex;
+
+    for(int i=0;i<n;i++){
+        if(heaviestTraffic<a[i].monthlyAVGVechicleTravel){
+            heaviestTraffic=a[i].monthlyAVGVechicleTravel;
+            heaviestTrafficIndex=i;
+        }
+    }
+
+    
+
+    printf("Road with Heaviest Traffic: %s\n Total Lanes: %d\nRoad Length: %f\nMonthly AVG Vechicle Travel: %d\n\n",a[heaviestTrafficIndex].roadName,a[heaviestTrafficIndex].lanes,a[heaviestTrafficIndex].roadLength,a[heaviestTrafficIndex].monthlyAVGVechicleTravel);
+
+}
+
+
+
+
+void displayAllRoadsInfo(struct Road a[], int n){
+
+    int heaviestTraffic=a[0].monthlyAVGVechicleTravel;
+    int heaviestTrafficIndex;
+
+    for(int i=0;i<n;i++){
+        if(heaviestTraffic<a[i].monthlyAVGVechicleTravel){
+            heaviestTraffic=a[i].monthlyAVGVechicleTravel;
+            heaviestTrafficIndex=i;
+        }
+    }
+
+    int calc=a[heaviestTrafficIndex].motorVehicles/2;
+
+
+    printf("\nRoad Name –\t # of lanes –\t Road Length –\t # of motor vehicles\n");
+
+    for(int i=0;i<n;i++){
+
+        if(a[i].motorVehicles<calc){
+            printf("%s -\t %d -\t %f -\t %d\n\n\n",a[i].roadName,a[i].lanes,a[i].roadLength,a[i].motorVehicles);
+        }
+        
+    }
+}
+
+
+void menu(){
+    printf("======= Dhaka Road Traffic Record System =========\n");
+    printf("Enter x, to take the info of one Road and store into the Road structure array of size N.\n");
+    printf("Enter y, to find and display the info of Road with the heaviest traffic. \n");
+    printf("Enter z, to display the information of the Roads that have less than half of the heaviest traffic in tabular format.\n");
+    printf("Enter q, quit/exit the menu system.\n\n");
+
+}
+
+int main(){
+    
+    int n=0;
+
+    while(1){
+        int N;
+
+    struct Road x[100];
+        menu();
+        fflush(stdin);
+        char choice;
+        scanf(" %c",&choice);
+        fflush(stdin);
+
+        if(choice=='q'){
+            break;
+        }else if(choice=='x'){
+            printf("How many roads?\n");
+            scanf("%d",&N);
+
+            takeOneRoadInfoFromKeyboard(x,N);
+        }else if(choice=='y'){
+            findRoadWithHeaviestTraffic(x,N);
+        }else if(choice=='z'){
+            displayAllRoadsInfo(x,N);
+        }else{
+            printf("Invalid Input");
+        }
+    }
+
+    return 0;
+
+}
+
+
